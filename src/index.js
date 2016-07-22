@@ -1,7 +1,6 @@
 import EntitySchema from './EntitySchema';
 import IterableSchema from './IterableSchema';
 import UnionSchema from './UnionSchema';
-import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 
 function defaultAssignEntity(normalized, key, entity) {
@@ -63,15 +62,10 @@ function defaultMergeIntoEntity(entityA, entityB, entityKey) {
       continue;
     }
 
-    if (!entityA.hasOwnProperty(key) || isEqual(entityA[key], entityB[key])) {
+    if (!entityA.hasOwnProperty(key)) {
       entityA[key] = entityB[key];
       continue;
     }
-
-    console.warn(
-      'When merging two ' + entityKey + ', found unequal data in their "' + key + '" values. Using the earlier value.',
-      entityA[key], entityB[key]
-    );
   }
 }
 
